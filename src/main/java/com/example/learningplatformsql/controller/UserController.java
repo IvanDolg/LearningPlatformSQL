@@ -1,6 +1,6 @@
 package com.example.learningplatformsql.controller;
 
-import com.example.learningplatformsql.Security.JWTTokenProvider;
+import com.example.learningplatformsql.security.JWTTokenProvider;
 import com.example.learningplatformsql.dto.AuthRequestDto;
 import com.example.learningplatformsql.entity.Role;
 import com.example.learningplatformsql.entity.User;
@@ -23,14 +23,15 @@ public class UserController {
     private final JWTTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @PostMapping
-    public ResponseEntity<User> create(final @RequestBody User user) {
+    @PostMapping("/registration")
+    public ResponseEntity<User> create(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AuthRequestDto dto) {
         User userDetails = (User) userService.loadUserByUsername(dto.getUsername());
+
         if (passwordEncoder.matches(dto.getPassword(), userDetails.getPassword())) {
             Set<Role> authorities = (Set<Role>) userDetails.getAuthorities();
             String token = jwtTokenProvider.generateToken(userDetails.getId(), userDetails.getUsername(), userDetails.getPassword(), authorities);

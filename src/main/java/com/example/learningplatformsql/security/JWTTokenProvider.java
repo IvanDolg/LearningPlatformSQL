@@ -1,4 +1,4 @@
-package com.example.learningplatformsql.Security;
+package com.example.learningplatformsql.security;
 
 import com.example.learningplatformsql.entity.Role;
 import com.example.learningplatformsql.entity.User;

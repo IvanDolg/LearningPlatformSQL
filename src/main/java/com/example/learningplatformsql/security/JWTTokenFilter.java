@@ -1,4 +1,4 @@
-package com.example.learningplatformsql.Security;
+package com.example.learningplatformsql.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
