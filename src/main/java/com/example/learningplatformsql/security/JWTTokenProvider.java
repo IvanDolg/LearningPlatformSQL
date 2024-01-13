@@ -29,8 +29,8 @@ public class JWTTokenProvider {
 
     public String generateToken(String username, String password, Set<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", getUserRoleNamesFromJWT(roles));
         claims.put("password", password);
+        claims.put("roles", getUserRoleNamesFromJWT(roles));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtExpirationInMs);
@@ -49,7 +49,13 @@ public class JWTTokenProvider {
         userPrincipal.setUsername(getUserUsernameFromJWT(token));
         userPrincipal.setPassword(getUserPasswordFromJWT(token));
         userPrincipal.setRoles(getUserRolesFromJWT(token));
+
         return new UsernamePasswordAuthenticationToken(userPrincipal, "", userPrincipal.getAuthorities());
+    }
+
+    public Set<Role> getUserRolesFromJWT(String token) {
+        List<String> roles = (List<String>) Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("roles");
+        return getUserRoleNamesFromJWT(roles);
     }
 
     public String getUserUsernameFromJWT(String token) {
@@ -58,11 +64,6 @@ public class JWTTokenProvider {
 
     public String getUserPasswordFromJWT(String token) {
         return (String) Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("password");
-    }
-
-    public Set<Role> getUserRolesFromJWT(String token) {
-        List<String> roles = (List<String>) Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("roles");
-        return getUserRoleNamesFromJWT(roles);
     }
 
     public String resolveToken(HttpServletRequest req) {
