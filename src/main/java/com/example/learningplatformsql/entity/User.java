@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "tb_users")
 public class User implements UserDetails {
