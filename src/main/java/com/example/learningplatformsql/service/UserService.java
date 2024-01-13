@@ -3,6 +3,7 @@ package com.example.learningplatformsql.service;
 import com.example.learningplatformsql.entity.Role;
 import com.example.learningplatformsql.entity.User;
 import com.example.learningplatformsql.repository.UserRepository;
+import com.example.learningplatformsql.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +26,16 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow();
+
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        UserPrincipal userPrincipal = UserPrincipal.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .roles(user.getRoles())
+                .build();
+
+        return userPrincipal;
+
     }
 }
