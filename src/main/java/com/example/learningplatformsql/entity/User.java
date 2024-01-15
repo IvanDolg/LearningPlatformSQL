@@ -34,7 +34,7 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-/*    @Column(name = "last_visit")
+    @Column(name = "last_visit")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd't'hh:mm:ss'z'")
-    private LocalDateTime lastVisitDate;*/
+    private LocalDateTime lastVisitDate;
 }

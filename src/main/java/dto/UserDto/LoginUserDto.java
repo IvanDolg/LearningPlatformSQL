@@ -28,7 +28,7 @@ public class LoginUserDto {
     @Range(min = 4,max = 16)
     private String password;
 
-/*    @NotEmpty
+    @NotEmpty
     @NotBlank
-    private LocalDateTime lastVisitDate;*/
+    private LocalDateTime lastVisitDate;
 }

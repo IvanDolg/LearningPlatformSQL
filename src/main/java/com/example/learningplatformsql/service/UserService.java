@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -37,5 +40,29 @@ public class UserService implements UserDetailsService {
 
         return userPrincipal;
 
+    }
+
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void remove(User user) {
+        userRepository.delete(user);
+    }
+
+    public void removeById(Long id) {
+        if (id != null) {
+            userRepository.deleteById(id);
+        }
+    }
+
+    public void update(User user) {
+        if (user != null) {
+            userRepository.save(user);
+        }
     }
 }
