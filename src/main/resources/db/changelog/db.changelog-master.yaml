@@ -1,0 +1,10 @@
+databaseChangeLog:
+
+  - include:
+    file: classpath:/db/changelog/2024/16-01/0.0.1-tb-user.sql
+
+  - include:
+    file: classpath:/db/changelog/2024/16-01/0.0.2-tb-tasks.sql
+    
+  - include:
+    file: classpath:/db/changelog/2024/16-01/0.0.3-tb-roles.sql
