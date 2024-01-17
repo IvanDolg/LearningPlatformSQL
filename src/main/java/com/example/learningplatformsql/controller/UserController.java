@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import mapper.GeneralMapper;
 import org.mapstruct.Mapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,7 +65,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Void> deleteUserById(@PathVariable("id") Long id) {
         userService.removeById(id);
         return ResponseEntity.noContent().build();
